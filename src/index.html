@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pro Rata Subscription Calculator</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="./SSG-logotype.png" alt="SSG Logo" class="logo">
+      <h1>Pro Rata Subscription Calculator</h1>
+      <p class="subtitle">Calculate accurate subscription charges for any billing period</p>
+    </header>
+
+    <main>
+      <!-- Billing Period Selector -->
+      <section class="calculator-section">
+        <h2>Select Billing Period</h2>
+        <div class="button-group">
+          <button class="btn btn-period active" data-period="monthly">Monthly</button>
+          <button class="btn btn-period" data-period="annual">Annual</button>
+        </div>
+      </section>
+
+      <!-- Calculation Mode Selector -->
+      <section class="calculator-section">
+        <h2>Calculation Mode</h2>
+        <div class="button-group">
+          <button class="btn btn-mode active" data-mode="byDates">By Date Range</button>
+          <button class="btn btn-mode" data-mode="byDays">By Number of Days</button>
+        </div>
+      </section>
+
+      <!-- Subscription Price Input -->
+      <section class="calculator-section">
+        <label for="subscriptionPrice" class="form-label">Subscription Price</label>
+        <div class="input-group">
+          <span class="currency-symbol">$</span>
+          <input 
+            type="number" 
+            id="subscriptionPrice" 
+            placeholder="0.00" 
+            step="0.01" 
+            min="0"
+            class="form-input"
+          >
+        </div>
+      </section>
+
+      <!-- By Date Range Section -->
+      <section id="byDateSection" class="calculator-section">
+        <h3>Billing Period Dates</h3>
+        <div class="form-group">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input 
+            type="date" 
+            id="startDate" 
+            class="form-input"
+          >
+        </div>
+        <div class="form-group">
+          <label for="endDate" class="form-label">End Date (Cancellation Date)</label>
+          <input 
+            type="date" 
+            id="endDate" 
+            class="form-input"
+          >
+        </div>
+      </section>
+
+      <!-- By Days Section (Hidden by default) -->
+      <section id="byDaysSection" class="calculator-section hidden">
+        <h3>Usage Duration</h3>
+        <div class="form-group">
+          <label for="daysUsed" class="form-label">Number of Days Used</label>
+          <input 
+            type="number" 
+            id="daysUsed" 
+            placeholder="0" 
+            min="0"
+            max="366"
+            class="form-input"
+          >
+        </div>
+      </section>
+
+      <!-- Calculate Button -->
+      <section class="calculator-section">
+        <button id="calculateBtn" class="btn btn-primary btn-large">Calculate Pro Rata Amount</button>
+      </section>
+
+      <!-- Results Section -->
+      <section id="resultsSection" class="results-section hidden">
+        <h2>Calculation Results</h2>
+        
+        <div class="results-grid">
+          <div class="result-card">
+            <span class="result-label">Daily Rate</span>
+            <span id="resultDailyRate" class="result-value">$0.00</span>
+          </div>
+          
+          <div class="result-card">
+            <span class="result-label">Period Days</span>
+            <span id="resultDaysInPeriod" class="result-value">0</span>
+          </div>
+          
+          <div class="result-card">
+            <span class="result-label">Days Used</span>
+            <span id="resultDaysUsed" class="result-value">0</span>
+          </div>
+          
+          <div class="result-card">
+            <span class="result-label">Usage %</span>
+            <span id="resultPercentage" class="result-value">0%</span>
+          </div>
+        </div>
+
+        <div class="results-highlight">
+          <div class="full-period">
+            <span class="label">Full Period Cost</span>
+            <span id="resultFullAmount" class="amount">$0.00</span>
+          </div>
+          <div class="pro-rata">
+            <span class="label">Pro Rata Amount</span>
+            <span id="resultProRata" class="amount">$0.00</span>
+          </div>
+        </div>
+
+        <div class="refund-section">
+          <h3>Refund Calculation</h3>
+          <p id="refundInfo" class="refund-info"></p>
+          <div class="result-card refund-card">
+            <span class="result-label">Refund Amount</span>
+            <span id="resultRefund" class="result-value">$0.00</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clear Button -->
+      <section class="calculator-section">
+        <button id="clearBtn" class="btn btn-outline">Clear All</button>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Pro Rata Subscription Calculator | Made with ❤️</p>
+    </footer>
+  </div>
+
+  <script src="./index.ts"></script>
+</body>
+</html>
