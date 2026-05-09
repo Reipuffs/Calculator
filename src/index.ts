@@ -34,9 +34,15 @@ billingPeriodBtns.forEach((btn) => {
   (btn as HTMLButtonElement).addEventListener('click', () => {
     billingPeriodBtns.forEach((b) => (b as HTMLButtonElement).classList.remove('active'));
     (btn as HTMLButtonElement).classList.add('active');
-    const period = ((btn as HTMLButtonElement).dataset.period === 'monthly') 
-      ? BillingPeriod.MONTHLY 
-      : BillingPeriod.ANNUAL;
+    const periodValue = (btn as HTMLButtonElement).dataset.period;
+    let period: BillingPeriod;
+    if (periodValue === 'monthly') {
+      period = BillingPeriod.MONTHLY;
+    } else if (periodValue === 'annual_early_cancellation') {
+      period = BillingPeriod.ANNUAL_EARLY_CANCELLATION;
+    } else {
+      period = BillingPeriod.ANNUAL;
+    }
     calculator.setBillingPeriod(period);
   });
 });

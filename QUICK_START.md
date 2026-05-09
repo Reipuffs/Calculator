@@ -15,11 +15,11 @@ npm start
 The app will automatically open at `http://localhost:3000`
 
 ### 3. Start Calculating!
-- Select your billing period (Monthly or Annual)
+- Select your calculator type (Monthly, Annual, or Annual Early Cancellation)
 - Choose calculation method (By dates or by days)
 - Enter your subscription price
 - Provide usage details
-- Click "Calculate Pro Rata Amount"
+- Click "Calculate Refund Amount"
 
 ---
 

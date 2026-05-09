@@ -12,20 +12,24 @@
     "lint": "tsc --noEmit && echo 'Type checking passed'",
     "start": "npm run dev"
   },
-  "keywords": ["calculator", "subscription", "pro-rata", "billing"],
+  "keywords": [
+    "calculator",
+    "subscription",
+    "pro-rata",
+    "billing"
+  ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1",
-    "clean-webpack-plugin": "^4.0.0",
-    "html-webpack-plugin": "^5.6.0",
-    "ts-loader": "^9.5.1",
-    "style-loader": "^3.3.3",
-    "css-loader": "^6.8.1"
-  },
-  "dependencies": {}
+    "webpack-dev-server": "^5.2.3"
+  }
 }

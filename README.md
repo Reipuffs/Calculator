@@ -1,15 +1,16 @@
-# Pro Rata Subscription Calculator
+# Subscription Refund Calculator
 
-A professional, production-ready calculator for accurate subscription pro rata calculations with support for both monthly and annual billing periods. Built with TypeScript, Webpack, and modern web standards.
+A professional, production-ready calculator for accurate subscription refund calculations with support for monthly, annual, and annual early cancellation billing periods. Built with TypeScript, Webpack, and modern web standards.
 
 ## Features
 
 ✨ **Core Functionality**
 - **Pro Rata Calculations**: Accurately calculate pro rata amounts for partial billing periods
-- **Multiple Calculation Modes**: 
+- **Multiple Calculation Modes**:
   - By date range (perfect for mid-cycle sign-ups or cancellations)
   - By number of days used
-- **Billing Period Support**: Handle both monthly and annual subscriptions
+- **Billing Period Support**: Handle monthly, annual, and annual early cancellation subscriptions
+- **Annual Early Cancellation**: Special logic for subscriptions offering 12 months service for 10 months payment
 - **Price Conversion**: Easily convert between monthly and annual pricing
 - **Refund Calculations**: Automatically calculate refunds for early cancellations
 - **Currency Formatting**: Properly formatted currency display

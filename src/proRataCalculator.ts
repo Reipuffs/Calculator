@@ -6,6 +6,7 @@
 export enum BillingPeriod {
   MONTHLY = 'monthly',
   ANNUAL = 'annual',
+  ANNUAL_EARLY_CANCELLATION = 'annual_early_cancellation',
 }
 
 export interface CalculationResult {
@@ -55,6 +56,8 @@ export function calculateProRata(
 
   const daysInPeriod = billingPeriod === BillingPeriod.MONTHLY 
     ? getDaysInMonth(startDate)
+    : billingPeriod === BillingPeriod.ANNUAL_EARLY_CANCELLATION
+    ? Math.round((getDaysInYear(startDate.getFullYear()) ? 366 : 365) * (10 / 12)) // 10 months for early cancellation
     : getDaysInYear(startDate.getFullYear()) ? 366 : 365;
 
   // Calculate the number of days used
@@ -62,8 +65,18 @@ export function calculateProRata(
     (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
   ) + 1; // +1 to include the start day
 
-  const dailyRate = subscriptionPrice / daysInPeriod;
-  const proRataAmount = dailyRate * daysUsed;
+  let dailyRate: number;
+  let proRataAmount: number;
+
+  if (billingPeriod === BillingPeriod.ANNUAL_EARLY_CANCELLATION) {
+    // For annual early cancellation, calculate based on 10-month billing period
+    dailyRate = subscriptionPrice / daysInPeriod;
+    proRataAmount = dailyRate * daysUsed;
+  } else {
+    dailyRate = subscriptionPrice / daysInPeriod;
+    proRataAmount = dailyRate * daysUsed;
+  }
+
   const percentageUsed = (daysUsed / daysInPeriod) * 100;
 
   return {
@@ -94,14 +107,26 @@ export function calculateProRataByDays(
 
   const daysInPeriod = billingPeriod === BillingPeriod.MONTHLY 
     ? 30 // Standard month for easy calculation
+    : billingPeriod === BillingPeriod.ANNUAL_EARLY_CANCELLATION
+    ? 304 // Approximately 10 months for early cancellation
     : 365;
 
   if (daysUsed > daysInPeriod) {
     throw new Error(`Days used cannot exceed ${daysInPeriod} days for ${billingPeriod} period`);
   }
 
-  const dailyRate = subscriptionPrice / daysInPeriod;
-  const proRataAmount = dailyRate * daysUsed;
+  let dailyRate: number;
+  let proRataAmount: number;
+
+  if (billingPeriod === BillingPeriod.ANNUAL_EARLY_CANCELLATION) {
+    // For annual early cancellation, calculate based on 10-month billing period
+    dailyRate = subscriptionPrice / daysInPeriod;
+    proRataAmount = dailyRate * daysUsed;
+  } else {
+    dailyRate = subscriptionPrice / daysInPeriod;
+    proRataAmount = dailyRate * daysUsed;
+  }
+
   const percentageUsed = (daysUsed / daysInPeriod) * 100;
 
   return {
@@ -137,7 +162,14 @@ export function calculateRefund(
   cancellationDate: Date,
   billingPeriod: BillingPeriod
 ): number {
-  // Calculate pro rata for the unused period
+  if (billingPeriod === BillingPeriod.ANNUAL_EARLY_CANCELLATION) {
+    // For annual early cancellation, refund = price - used_amount
+    // where used_amount is calculated with the adjusted rate
+    const result = calculateProRata(subscriptionPrice, startDate, cancellationDate, billingPeriod);
+    return Number((subscriptionPrice - result.proRataAmount).toFixed(2));
+  }
+
+  // Standard refund calculation for monthly and regular annual
   const nextBillingDate = new Date(startDate);
   if (billingPeriod === BillingPeriod.MONTHLY) {
     nextBillingDate.setMonth(nextBillingDate.getMonth() + 1);

@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pro Rata Refund Calculator</title>
+  <title>Subscription Refund Calculator</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <div class="container">
     <header>
       <img id="appLogo" src="" alt="SSG Logo" class="logo">
-      <h1>Pro Rata Refund Calculator</h1>
-      <p class="subtitle">Calculate accurate refund amounts for any billing period</p>
+      <h1>Subscription Refund Calculator</h1>
+      <p class="subtitle">Calculate accurate refund amounts for monthly, annual, and annual early cancellation subscriptions</p>
     </header>
 
     <main>
       <!-- Billing Period Selector -->
       <section class="calculator-section">
-        <h2>Select Billing Period</h2>
+        <h2>Select Calculator Type</h2>
         <div class="button-group">
           <button class="btn btn-period active" data-period="monthly">Monthly</button>
           <button class="btn btn-period" data-period="annual">Annual</button>
+          <button class="btn btn-period" data-period="annual_early_cancellation">Annual Early Cancellation</button>
         </div>
       </section>
 
@@ -88,7 +89,7 @@
 
       <!-- Calculate Button -->
       <section class="calculator-section">
-        <button id="calculateBtn" class="btn btn-primary btn-large">Calculate Pro Rata Amount</button>
+        <button id="calculateBtn" class="btn btn-primary btn-large">Calculate Refund Amount</button>
       </section>
 
       <!-- Results Section -->
@@ -145,7 +146,7 @@
     </main>
 
     <footer>
-      <p>&copy; 2026 Pro Rata Subscription Calculator | Made by Steve your friendly neighbourhood colleague</p>
+      <p>&copy; 2026 Subscription Refund Calculator | Made by Steve your friendly neighbourhood colleague</p>
     </footer>
   </div>
 
