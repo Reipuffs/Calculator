@@ -1,9 +1,16 @@
 import './styles.css';
+import logoUrl from './assets/SSG-logotype.png';
 import { SubscriptionCalculator } from './calculator';
 import { BillingPeriod } from './proRataCalculator';
 
 // Initialize calculator
 const calculator = new SubscriptionCalculator();
+
+const appLogo = document.getElementById('appLogo') as HTMLImageElement | null;
+if (appLogo) {
+  appLogo.src = logoUrl;
+}
+
 
 // DOM Elements
 const billingPeriodBtns = document.querySelectorAll('.btn-period');

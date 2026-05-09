@@ -69,7 +69,8 @@ header::before {
   border-radius: 50%;
 }
 
-header img {
+header img,
+header .logo {
   height: 60px;
   margin-bottom: 1.5rem;
   opacity: 0.95;
