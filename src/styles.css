@@ -291,7 +291,7 @@ input[type="password"] {
   box-sizing: border-box;
 }
 
-/* Date input styling - works across all browsers */
+/* Date input styling - native appearance for proper display */
 input[type="date"] {
   display: block;
   width: 100%;
@@ -300,13 +300,35 @@ input[type="date"] {
   min-height: 44px;
   font-size: 16px;
   color: var(--text-primary);
+  padding: 0.85rem 1.1rem;
+  background-color: var(--surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  background-image: none;
+  /* WebKit fix for iOS overflow - textfield appearance still shows value */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-/* iOS date picker styling */
+/* Show the date value text clearly */
+input[type="date"] {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Ensure date picker icon is visible and clickable */
 input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
-  width: 100%;
-  padding: 0;
+  color: var(--accent-color);
+  padding: 4px 8px;
+  margin-right: 0;
+}
+
+/* Firefox date input styling */
+input[type="date"]::-moz-calendar-picker-indicator {
+  cursor: pointer;
+  color: var(--accent-color);
+  padding: 4px 8px;
 }
 
 /* Input Group (with currency symbol) */
