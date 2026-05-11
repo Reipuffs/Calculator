@@ -6,6 +6,7 @@ yarn.lock
 # Production build
 dist/
 build/
+.electron-builder-cache/
 
 # IDE & Editor
 .vscode/

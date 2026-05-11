@@ -1,5 +1,6 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import * as path from 'path';
+import { pathToFileURL } from 'url';
 
 const isDev = require('electron-is-dev');
 
@@ -18,9 +19,9 @@ const createWindow = () => {
     },
   });
 
-  const startUrl = isDev
-    ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../dist/index.html')}`;
+  const startUrl =
+    process.env.ELECTRON_START_URL ||
+    pathToFileURL(path.join(__dirname, '../dist/index.html')).toString();
 
   mainWindow.loadURL(startUrl);
 

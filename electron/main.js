@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 const path = require("path");
+const url_1 = require("url");
 const isDev = require('electron-is-dev');
 let mainWindow = null;
 const createWindow = () => {
@@ -16,9 +17,8 @@ const createWindow = () => {
             contextIsolation: true,
         },
     });
-    const startUrl = isDev
-        ? 'http://localhost:3000'
-        : `file://${path.join(__dirname, '../dist/index.html')}`;
+    const startUrl = process.env.ELECTRON_START_URL ||
+        (0, url_1.pathToFileURL)(path.join(__dirname, '../dist/index.html')).toString();
     mainWindow.loadURL(startUrl);
     // Open DevTools in development
     if (isDev) {
