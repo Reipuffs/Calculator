@@ -73,6 +73,8 @@ main {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
 }
 
 .container,
@@ -267,6 +269,37 @@ main {
 
 .form-input::placeholder {
   color: var(--text-secondary);
+}
+
+/* iOS-specific input fixes */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  font-size: 16px;
+}
+
+input[type="date"],
+input[type="number"],
+input[type="text"] {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Remove iOS date picker styling */
+input[type="date"] {
+  -webkit-appearance: none;
+  min-height: 44px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  width: 100%;
 }
 
 /* Input Group (with currency symbol) */
