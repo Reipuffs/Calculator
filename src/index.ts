@@ -24,6 +24,39 @@ const clearBtn = document.getElementById('clearBtn') as HTMLButtonElement;
 const byDateSection = document.getElementById('byDateSection') as HTMLElement;
 const byDaysSection = document.getElementById('byDaysSection') as HTMLElement;
 const resultsSection = document.getElementById('resultsSection') as HTMLElement;
+const themeToggle = document.getElementById('themeToggle') as HTMLButtonElement;
+
+// Theme Toggle Functionality
+const initTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.documentElement.classList.add('dark-mode');
+    updateThemeIcon();
+  }
+};
+
+const toggleTheme = () => {
+  const html = document.documentElement;
+  const isDark = html.classList.toggle('dark-mode');
+  
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  updateThemeIcon();
+};
+
+const updateThemeIcon = () => {
+  const icon = themeToggle.querySelector('.theme-icon');
+  if (icon) {
+    icon.textContent = document.documentElement.classList.contains('dark-mode') ? '☀️' : '🌙';
+  }
+};
+
+// Initialize theme on load
+initTheme();
+
+// Theme toggle event listener
+themeToggle.addEventListener('click', toggleTheme);
 
 // Set today as default start date
 const today = new Date().toISOString().split('T')[0];

@@ -27,13 +27,33 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Dark Mode Variables */
+html.dark-mode {
+  --primary-color: #4FC3D6;
+  --primary-dark: #26A69A;
+  --primary-light: #1A2527;
+  --accent-color: #FF8A65;
+  --accent-light: #2A2A2A;
+  --secondary-color: #B0BEC5;
+  --success-color: #4FC3D6;
+  --danger-color: #EF5350;
+  --warning-color: #FFCA28;
+  --background: #121212;
+  --surface: #1E1E1E;
+  --text-primary: #E0E0E0;
+  --text-secondary: #B0B0B0;
+  --border-color: #333333;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-  background: linear-gradient(135deg, #F0F7F9 0%, #E8F5F7 100%);
+  background: linear-gradient(135deg, var(--background) 0%, var(--primary-light) 100%);
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -51,7 +71,7 @@ header {
   text-align: center;
   margin-bottom: 3rem;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, var(--primary-color) 0%, #1B7580 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   position: relative;
@@ -67,6 +87,10 @@ header::before {
   height: 300px;
   background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
   border-radius: 50%;
+}
+
+html.dark-mode header::before {
+  background: radial-gradient(circle, rgba(255, 138, 101, 0.15) 0%, transparent 70%);
 }
 
 header img,
@@ -93,6 +117,39 @@ header h1 {
   position: relative;
   z-index: 1;
   font-weight: 300;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.theme-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+html.dark-mode .theme-icon {
+  content: '☀️';
 }
 
 /* Main Content */
@@ -430,11 +487,11 @@ main {
 
 /* Refund Section */
 .refund-section {
-  background: linear-gradient(135deg, white 0%, #F5FAFB 100%);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--primary-light) 100%);
   padding: 2rem;
   border-radius: var(--radius);
   margin-top: 2rem;
-  border: 1px solid rgba(32, 136, 143, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .refund-section h3 {
@@ -491,6 +548,17 @@ footer {
     padding: 2rem 1.5rem;
   }
 
+  .theme-toggle {
+    width: 45px;
+    height: 45px;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .theme-icon {
+    font-size: 1.3rem;
+  }
+
   header img {
     height: 50px;
   }
@@ -506,7 +574,16 @@ footer {
   main {
     padding: 1.5rem;
   }
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
 
+  .theme-icon {
+    font-size: 1.1rem;
+  }
   .button-group {
     flex-direction: column;
   }
@@ -575,6 +652,16 @@ footer {
 
   .amount {
     font-size: 2rem;
+  }
+
+  .form-input {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-label {
+    word-wrap: break-word;
+    hyphens: auto;
   }
 }
 
