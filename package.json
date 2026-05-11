@@ -39,8 +39,7 @@
     "webpack-dev-server": "^5.2.3"
   },
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
-    "electron-is-dev": "^3.0.1"
+    "@vercel/analytics": "^2.0.1"
   },
   "build": {
     "appId": "com.calculator.prorata",
@@ -49,23 +48,30 @@
       "dist/**/*",
       "electron/main.js",
       "electron/preload.js",
-      "node_modules/**/*",
       "package.json"
     ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "assets",
+      "output": "release"
     },
+    "afterPack": "scripts/apply-win-icon.js",
     "win": {
       "target": [
         "nsis",
         "portable"
       ],
-      "icon": "assets/icon.png",
+      "icon": "assets/icon.ico",
       "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Pro Rata Calculator",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico"
     },
     "mac": {
       "target": [

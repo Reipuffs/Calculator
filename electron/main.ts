@@ -1,8 +1,6 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import * as path from 'path';
 import { pathToFileURL } from 'url';
-
-const isDev = require('electron-is-dev');
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -12,6 +10,10 @@ const createWindow = () => {
     height: 800,
     minWidth: 800,
     minHeight: 600,
+    frame: false,
+    resizable: true,
+    backgroundColor: '#f4f7f8',
+    icon: path.join(__dirname, '../assets/icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -26,7 +28,7 @@ const createWindow = () => {
   mainWindow.loadURL(startUrl);
 
   // Open DevTools in development
-  if (isDev) {
+  if (!app.isPackaged) {
     mainWindow.webContents.openDevTools();
   }
 
@@ -34,6 +36,31 @@ const createWindow = () => {
     mainWindow = null;
   });
 };
+
+const getWindowFromEvent = (event: Electron.IpcMainEvent) => {
+  return BrowserWindow.fromWebContents(event.sender);
+};
+
+ipcMain.on('window:minimize', (event) => {
+  getWindowFromEvent(event)?.minimize();
+});
+
+ipcMain.on('window:maximize-toggle', (event) => {
+  const window = getWindowFromEvent(event);
+  if (!window) {
+    return;
+  }
+
+  if (window.isMaximized()) {
+    window.unmaximize();
+  } else {
+    window.maximize();
+  }
+});
+
+ipcMain.on('window:close', (event) => {
+  getWindowFromEvent(event)?.close();
+});
 
 const createMenu = () => {
   const template: Electron.MenuItemConstructorOptions[] = [

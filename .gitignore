@@ -7,6 +7,7 @@ yarn.lock
 dist/
 build/
 .electron-builder-cache/
+release/
 
 # IDE & Editor
 .vscode/
@@ -36,3 +37,4 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+

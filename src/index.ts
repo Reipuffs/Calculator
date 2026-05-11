@@ -4,8 +4,28 @@ import { SubscriptionCalculator } from './calculator';
 import { BillingPeriod } from './proRataCalculator';
 import { inject } from '@vercel/analytics';
 
-// Initialize Vercel Analytics
-inject();
+declare global {
+  interface Window {
+    electron?: {
+      version: string;
+      platform: string;
+      isDesktopApp: boolean;
+      windowControls?: {
+        minimize: () => void;
+        toggleMaximize: () => void;
+        close: () => void;
+      };
+    };
+  }
+}
+
+const isElectronApp = Boolean(window.electron?.isDesktopApp);
+
+if (isElectronApp) {
+  document.documentElement.classList.add('electron-app');
+} else {
+  inject();
+}
 
 // Initialize calculator
 const calculator = new SubscriptionCalculator();
@@ -13,6 +33,25 @@ const calculator = new SubscriptionCalculator();
 const appLogo = document.getElementById('appLogo') as HTMLImageElement | null;
 if (appLogo) {
   appLogo.src = logoUrl;
+}
+
+const titlebarLogo = document.getElementById('titlebarLogo') as HTMLImageElement | null;
+if (titlebarLogo) {
+  titlebarLogo.src = logoUrl;
+}
+
+if (isElectronApp && window.electron?.windowControls) {
+  document.getElementById('windowMinimize')?.addEventListener('click', () => {
+    window.electron?.windowControls?.minimize();
+  });
+
+  document.getElementById('windowMaximize')?.addEventListener('click', () => {
+    window.electron?.windowControls?.toggleMaximize();
+  });
+
+  document.getElementById('windowClose')?.addEventListener('click', () => {
+    window.electron?.windowControls?.close();
+  });
 }
 
 
