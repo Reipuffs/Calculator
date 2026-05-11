@@ -264,10 +264,28 @@ main {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 4px var(--primary-light);
-  background-color: #FAFCFD;
+  background-color: var(--surface);
 }
 
 .form-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Dark mode input styling */
+html.dark-mode .form-input {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .form-input:focus {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+html.dark-mode .form-input::placeholder {
   color: var(--text-secondary);
 }
 
@@ -308,12 +326,14 @@ input[type="date"] {
   /* WebKit fix for iOS overflow - textfield appearance still shows value */
   -webkit-appearance: none;
   appearance: none;
+  font-weight: 500;
 }
 
-/* Show the date value text clearly */
-input[type="date"] {
+/* Dark mode date input styling */
+html.dark-mode input[type="date"] {
+  background-color: var(--surface);
   color: var(--text-primary);
-  font-weight: 500;
+  border-color: var(--border-color);
 }
 
 /* Ensure date picker icon is visible and clickable */
