@@ -2,6 +2,10 @@ import './styles.css';
 import logoUrl from './assets/SSG-logotype.png';
 import { SubscriptionCalculator } from './calculator';
 import { BillingPeriod } from './proRataCalculator';
+import { inject } from '@vercel/analytics';
+
+// Initialize Vercel Analytics
+inject();
 
 // Initialize calculator
 const calculator = new SubscriptionCalculator();
