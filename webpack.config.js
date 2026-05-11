@@ -43,7 +43,9 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!win-unpacked/**'],
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       minify: {
