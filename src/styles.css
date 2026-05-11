@@ -271,8 +271,7 @@ main {
   color: var(--text-secondary);
 }
 
-/* iOS-specific input fixes */
-input,
+/* Input appearance fixes - iOS specific */
 textarea,
 select {
   -webkit-appearance: none;
@@ -282,24 +281,32 @@ select {
   font-size: 16px;
 }
 
-input[type="date"],
 input[type="number"],
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   display: block;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-/* Remove iOS date picker styling */
+/* Date input styling - works across all browsers */
 input[type="date"] {
-  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 44px;
+  font-size: 16px;
+  color: var(--text-primary);
 }
 
+/* iOS date picker styling */
 input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   width: 100%;
+  padding: 0;
 }
 
 /* Input Group (with currency symbol) */
